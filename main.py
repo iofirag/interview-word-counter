@@ -3,23 +3,19 @@ import json
 from dotenv import load_dotenv
 from flask import Flask, Blueprint, request, Response
 from datetime import datetime, timedelta
-import redis
-
-# init redis connection
-pool = redis.ConnectionPool(host='localhost', port=6379, db=0)
-redis = redis.Redis(connection_pool=pool)
+from services.redisDriver import RedisDriver
 
 # take environment variables from .env.
 load_dotenv()
 
 # init variables
+redisDriver = RedisDriver(host=os.environ['REDIS_HOST'])
 WORD_LIST = json.loads(os.environ['WORD_LIST'])
-counter = {}
-
 # create Blueprint object for add a prefix to all Flask routes
 bp = Blueprint('words_counter_rest_api', __name__)
 # create the application object
 app = Flask(__name__)
+
 # use decorators to link the function to a url
 @bp.route('/events', methods=['POST'])
 def events():
@@ -28,7 +24,7 @@ def events():
     for word in body_word_lst:
         word = word.lower()
         if word in WORD_LIST:
-            redis.lpush(word, ts) # insert at the head
+            redisDriver.saveWordTs(word, ts)
     return Response(status=204)
 
 
@@ -36,12 +32,11 @@ def events():
 def stats():
     interval_seconds = int(request.args.get('interval'))
     old_ts = (datetime.now() - timedelta(seconds=interval_seconds)).timestamp()
-    print(old_ts)
     # init word as zeros
     output = {word: 0 for word in WORD_LIST}
     # set real data
     for word in WORD_LIST:
-        ts_lst = redis.lrange(word, 0, -1)
+        ts_lst = redisDriver.getWordTimestampList(word)
         for ts in ts_lst:
             tsDecoded = float(ts.decode('utf-8'))
             if tsDecoded >= old_ts:
@@ -54,4 +49,4 @@ def stats():
 # start the server with the 'run()' method
 if __name__ == '__main__':
     app.register_blueprint(bp, url_prefix="/api/v1")
-    app.run(port=3000, debug=True)
+    app.run(host='0.0.0.0', port=3000, debug=True)

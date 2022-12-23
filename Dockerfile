@@ -1,13 +1,15 @@
-FROM python:slim
+FROM python:3.8-alpine
 
-WORKDIR /service
+WORKDIR /app
 
-# copy files
+# cache
 COPY requirements.txt ./
 RUN pip install -r requirements.txt
+# copy files
+COPY . ./
 
-COPY main.py ./
-COPY .env ./
+# ports
+EXPOSE 3000
 
 # run main
 CMD [ "python", "main.py" ]

@@ -7,15 +7,13 @@ services:
         ports:
             - 6379:6379
 
-    # counter-service
     counter-service:
-        # build: .
-        image: counter-service
+        build: .
         container_name: counter-service
         depends_on:
             - redis
-        # environment:
-        # restart: always
+        environment:
+            - REDIS_HOST=redis
         ports:
             - 3000:3000
 
