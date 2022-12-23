@@ -17,6 +17,11 @@ bp = Blueprint('words_counter_rest_api', __name__)
 app = Flask(__name__)
 
 # use decorators to link the function to a url
+@app.route('/ping')
+def ping():
+    return 'PONG', 200
+
+
 @bp.route('/events', methods=['POST'])
 def events():
     ts = datetime.now().timestamp()
@@ -49,4 +54,4 @@ def stats():
 # start the server with the 'run()' method
 if __name__ == '__main__':
     app.register_blueprint(bp, url_prefix="/api/v1")
-    app.run(host='0.0.0.0', port=3000, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)

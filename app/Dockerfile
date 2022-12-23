@@ -1,15 +1,13 @@
 FROM python:3.8-alpine
 
+# ports
+EXPOSE 5000
+
 WORKDIR /app
 
 # cache
-COPY requirements.txt ./
+COPY . .
 RUN pip install -r requirements.txt
-# copy files
-COPY . ./
-
-# ports
-EXPOSE 3000
 
 # run main
 CMD [ "python", "main.py" ]

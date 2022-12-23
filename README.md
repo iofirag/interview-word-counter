@@ -1,5 +1,3 @@
 For running this project, run:  
-    $ pip install -r requirements.txt  
-    $ docker build .  
-    $ docker-compose up  
+    $ docker-compose up --build -d --scale app=<number_of_instances>
 

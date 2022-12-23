@@ -1,4 +1,4 @@
-version: '3.9' # optional since v1.27.0
+version: '3.9'
 
 services:
     redis:
@@ -7,14 +7,19 @@ services:
         ports:
             - 6379:6379
 
-    counter-service:
-        build: .
-        container_name: counter-service
+    app:
+        build: app
         depends_on:
             - redis
         environment:
             - REDIS_HOST=redis
+
+    nginx:
+        container_name: nginx
+        build: nginx
         ports:
-            - 3000:3000
+            - 80:80
+        depends_on:
+            - app
 
 
