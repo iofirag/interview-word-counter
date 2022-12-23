@@ -10,8 +10,8 @@ class RedisDriver:
         except:
             print("RedisDriver - Redis connection error")
 
-    def saveWordTs(self, word: str, ts: float):
+    def save_word_ts(self, word: str, ts: float):
         return self.redis.lpush(word, ts) # insert at the head
 
-    def getWordTimestampList(self, word: str) -> [float]:
+    def get_word_ts_list(self, word: str) -> [float]:
         return self.redis.lrange(word, 0, -1)
