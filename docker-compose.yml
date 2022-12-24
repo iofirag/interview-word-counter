@@ -9,6 +9,8 @@ services:
 
     app:
         build: app
+        deploy:
+            replicas: 2
         depends_on:
             - redis
         environment:

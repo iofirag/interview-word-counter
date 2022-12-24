@@ -1,0 +1,12 @@
+curl -X POST 'http://localhost/api/v1/events' -d 'Avanan is a leading Enterprise Solution
+for Cloud Email and Collaboration Security'
+
+###
+
+curl -X POST 'http://localhost/api/v1/events' -d 'CheckPoint Research have been
+observing an enormous rise in email attacks since the beginning of 2020'
+
+###
+
+curl 'http://localhost/api/v1/stats?interval=10'
+

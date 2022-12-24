@@ -5,8 +5,10 @@ from flask import Flask, Blueprint, request, Response
 from datetime import datetime, timedelta
 from services.redis_driver import RedisDriver
 
+
 # take environment variables from .env.
 load_dotenv()
+
 
 # init variables
 redis_driver = RedisDriver(host=os.getenv('REDIS_HOST'))
@@ -15,6 +17,7 @@ WORD_LIST: list[str] = os.getenv('WORD_LIST').split(',')
 bp = Blueprint('words_counter_rest_api', __name__)
 # create the application object
 app = Flask(__name__)
+
 
 # use decorators to link the function to a url
 @app.route('/health')
