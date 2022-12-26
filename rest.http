@@ -1,12 +1,17 @@
+### Dockerized Rest
 curl -X POST 'http://localhost/api/v1/events' -d 'Avanan is a leading Enterprise Solution
 for Cloud Email and Collaboration Security'
-
 ###
-
 curl -X POST 'http://localhost/api/v1/events' -d 'CheckPoint Research have been
 observing an enormous rise in email attacks since the beginning of 2020'
-
 ###
-
 curl 'http://localhost/api/v1/stats?interval=10'
 
+
+### Local Rest
+curl -X POST 'http://localhost:5000/api/v1/events' -d 'Avanan is a leading Enterprise Solution
+for Cloud Email and Collaboration Security'
+###
+curl 'http://localhost:5000/api/v1/stats?interval=10'
+###
+curl 'http://localhost:5000/health'

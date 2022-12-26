@@ -10,5 +10,5 @@ COPY ./requirements.txt .
 RUN pip install -r requirements.txt
 COPY . .
 
-# run main
-CMD [ "python", "main.py" ]
+# run app
+CMD [ "python", "app.py" ]

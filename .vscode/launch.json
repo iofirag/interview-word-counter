@@ -19,7 +19,7 @@
       "name": "Python: Debugging App Test",
       "type": "python",
       "request": "launch",
-      "program": "app/test_app.py",
+      "program": "${file}",
       "console": "integratedTerminal",
       "justMyCode": true,
       "env": {
